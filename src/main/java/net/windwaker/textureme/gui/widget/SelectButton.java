@@ -35,7 +35,7 @@ public class SelectButton extends GenericButton {
 		boolean removePack = false;
 		String url = packs.getPackAddress(id);
 
-		if (list.getSelectedItem().getTitle().equals(ChatColor.YELLOW + "Player's Choice") && player.hasPermission("textureme.playerschoice")) {
+		if (list.getSelectedItem().getTitle().equals(ChatColor.YELLOW + "Player's Choice") && player.hasPermission("textureme.playerschoice")) {			
 			permission = true;
 			removePack = true;
 		}
@@ -74,7 +74,7 @@ public class SelectButton extends GenericButton {
 		}
 
 		player.setTexturePack(url);
-		plugin.sendNotification(player, "Downloading pack...");
+		plugin.sendNotification(player, "Downloading pack...");		
 		if (config.rememberSelections()) {
 			users.setSelection(player.getName(), id);
 		}
@@ -85,6 +85,10 @@ public class SelectButton extends GenericButton {
 		Set<String> ids = packs.getPacks();
 		for(String id : ids) {
 			String name = packs.getPackName(id);
+			if (list.getSelectedItem() == null) {
+				list.setSelection(0);
+			}
+				
 			if (name.equalsIgnoreCase(list.getSelectedItem().getTitle())) {
 				return id;
 			}

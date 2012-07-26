@@ -15,56 +15,57 @@ import org.getspout.spoutapi.gui.GenericListWidget;
 import org.getspout.spoutapi.gui.GenericPopup;
 import org.getspout.spoutapi.gui.GenericTexture;
 import org.getspout.spoutapi.gui.RenderPriority;
+import org.getspout.spoutapi.gui.WidgetAnchor;
 
 public class Selector extends GenericPopup {
 	
 	public Selector(TextureMe plugin, Player player) {
 		// Label
 		GenericLabel label = new GenericLabel(plugin.getConfig().getPromptTitle());
-		label.setX(175).setY(25);
+		//label.setX(175).setY(25);
+		label.setAnchor(WidgetAnchor.CENTER_CENTER);
+		label.setPriority(RenderPriority.Lowest);
+		label.shiftXPos(-70).shiftYPos(-122);		
 		label.setPriority(RenderPriority.Lowest);
 		label.setWidth(-1).setHeight(-1);
 		
 		// Border
-		GenericTexture border = new GenericTexture("http://dl.dropbox.com/u/27507830/GuildCraft/Images/HUD/blue.png");
-		border.setX(65).setY(20);
+		GenericTexture border = new GenericTexture("http://www.almuramc.com/images/blue.png");
+		border.setAnchor(WidgetAnchor.CENTER_CENTER);
 		border.setPriority(RenderPriority.High);
 		border.setWidth(300).setHeight(200);
-		
-		// Background gradient
-		GenericGradient gradient = new GenericGradient();
-		gradient.setTopColor(new Color(0.25F, 0.25F, 0.25F, 1.0F));
-		gradient.setBottomColor(new Color(0.35F, 0.35F, 0.35F, 1.0F));
-		gradient.setWidth(300).setHeight(200);
-		gradient.setX(65).setY(20);
-		gradient.setPriority(RenderPriority.Highest);
+		border.shiftXPos(-170).shiftYPos(-128);					
 		
 		// Texture list
 		GenericListWidget list = new TexturePackList(plugin);
-		list.setX(90).setY(50);
-		list.setWidth(250).setHeight(125);
+		list.setAnchor(WidgetAnchor.CENTER_CENTER);
+		list.shiftXPos(-145).shiftYPos(-106);
+		list.setWidth(255).setHeight(145);
 		list.setPriority(RenderPriority.Lowest);
 		
 		// Close button
 		CloseButton close = new CloseButton();
-		close.setX(155).setY(195);
-		close.setWidth(60).setHeight(20);
-		close.setPriority(RenderPriority.Lowest);
-				
+		close.setAuto(true);
+		close.setAnchor(WidgetAnchor.CENTER_CENTER);
+		close.shiftXPos(80).shiftYPos(46);
+		close.setHeight(18).setWidth(40);
+		
 		// Configure button
 		ConfigureButton configure = new ConfigureButton(plugin, list, new ConfigMenu(plugin));
-		configure.setX(215).setY(195);
-		configure.setWidth(60).setHeight(20);
-		configure.setPriority(RenderPriority.Lowest);
-		
+		configure.setAuto(true);
+		configure.setAnchor(WidgetAnchor.CENTER_CENTER);
+		configure.shiftXPos(-150).shiftYPos(46);
+		configure.setHeight(18).setWidth(60);
+				
 		// Select button
 		SelectButton select = new SelectButton(plugin, list);
-		select.setX(95).setY(195);
-		select.setWidth(60).setHeight(20);
-		select.setPriority(RenderPriority.Lowest);
+		select.setAuto(true);
+		select.setAnchor(WidgetAnchor.CENTER_CENTER);
+		select.shiftXPos(30).shiftYPos(46);
+		select.setHeight(18).setWidth(40);
 		
 		this.setTransparent(true);
-		this.attachWidgets(plugin, border, gradient, select, close, label, list);
+		this.attachWidgets(plugin, border, select, close, label, list);
 		
 		// Attach configure button
 		if (player.hasPermission("textureme.configure") || player.isOp()) { this.attachWidget(plugin, configure); }
